@@ -1,0 +1,28 @@
+---
+version: '3.1'
+services:
+  zeppelin:
+    build: zeppelin
+    ports:
+      - '8080:8080'
+      - '4040:4040'
+    environment:
+      - ZEPPELIN_LOG_DIR=/logs
+      - ZEPPELIN_NOTEBOOK_DIR=/notebook
+    volumes:
+      - ./logs:/logs
+      - ./data:/data
+      - ./notebook:/notebook
+    platform: linux/amd64
+
+  postgres:
+    container_name: postgres
+    hostname: postgres
+    image: postgres:13.5-alpine3.15
+    env_file:
+      - /Users/tridge/tridge/queenspark/env/postgres.env
+    volumes:
+      - /Users/tridge/tridge/queenspark/localdata/pginit:/docker-entrypoint-initdb.d
+      - /Users/tridge/tridge/queenspark/localdata/pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
