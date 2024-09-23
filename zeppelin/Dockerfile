@@ -1,4 +1,4 @@
-FROM apache/zeppelin:0.10.1
+FROM apache/zeppelin:0.11.1
 
 USER 0
 
